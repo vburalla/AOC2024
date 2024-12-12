@@ -18,8 +18,12 @@ public class Day7 {
         Long total = 0L;
         Long total2 = 0L;
         for (String line : lines) {
-            total += getResultIfPossible(line, false);
-            total2 += getResultIfPossible(line, true);
+            total += getResult(line, false);
+            Long result2 = getResult(line, true);
+            total2 += result2;
+            if(result2 > 0) {
+                System.out.println(result2);
+            }
         }
 
         System.out.println("Total: " + total);
@@ -27,69 +31,43 @@ public class Day7 {
 
     }
 
-    private static Long getResultIfPossible(String line, boolean thirdOperator) {
+    private static Long getResult(String line, boolean thirdOperator) {
 
         List<Long> operators = getNumbers(line);
         Long expectedResult = operators.remove(0);
         List<Long> results = List.of(operators.remove(0));
-        List<Character> tempOperations = new ArrayList<>();
-        Long prevOperator = results.get(0);
-        int i = 0;
 
-        while (i < operators.size()) {
+        int i=0;
+
+        while(i < operators.size()) {
 
             Long operator = operators.get(i);
 
             List<Long> tempResults = new ArrayList<>();
 
-            for (Long value : results) {
+            for(Long value : results) {
 
-                if (value >= 0) {
-                    Long tempResult = value + operator;
-                    if (tempResult.equals(expectedResult)) {
-                        return expectedResult;
-                    } else if (tempResult < expectedResult && i < operators.size() - 1) {
-                        tempResults.add(tempResult.longValue());
-                        tempOperations.add('+');
-                    }
-                } else {
-                    Long tempResult = -value + Long.parseLong(String.valueOf(prevOperator) + String.valueOf(operator));
-                    if (tempResult.equals(expectedResult)) {
-                        return expectedResult;
-                    } else if (tempResult < expectedResult && i < operators.size() - 1) {
-                        tempResults.add(tempResult.longValue());
-                        tempOperations.add('+');
-                    }
+                Long tempResult = value + operator;
+                if (tempResult.equals(expectedResult) && i == operators.size() - 1) {
+                    return expectedResult;
+                } else if (tempResult <= expectedResult) {
+                    tempResults.add(tempResult);
                 }
-
-                if (value >= 0) {
-                    Long tempResult = value * operator;
-                    if (tempResult.equals(expectedResult)) {
-                        return expectedResult;
-                    } else if (tempResult < expectedResult && i < operators.size() - 1) {
-                        tempResults.add(tempResult.longValue());
-                        tempOperations.add('*');
-                    }
-                } else {
-                    Long tempResult = -value * Long.parseLong(String.valueOf(prevOperator) + String.valueOf(operator));
-                    if (tempResult.equals(expectedResult)) {
-                        return expectedResult;
-                    } else if (tempResult < expectedResult && i < operators.size() - 1) {
-                        tempResults.add(tempResult.longValue());
-                        tempOperations.add('*');
-                    }
+                tempResult = value * operator;
+                if (tempResult.equals(expectedResult) && i == operators.size() - 1) {
+                    return expectedResult;
+                } else if (tempResult <= expectedResult ) {
+                    tempResults.add(tempResult);
                 }
-                if (thirdOperator) {
-                    Long tempResult = Long.parseLong(String.valueOf(prevOperator) + String.valueOf(operator));
-                    if (tempResult.equals(expectedResult)) {
+                if(thirdOperator) {
+                    tempResult = Long.parseLong(value.toString() + operator.toString());
+                    if (tempResult.equals(expectedResult) && i == operators.size() - 1) {
                         return expectedResult;
-                    } else if (tempResult < expectedResult && i < operators.size() - 1) {
-                        tempResults.add(tempResult.longValue());
+                    } else if (tempResult <= expectedResult) {
+                        tempResults.add(tempResult);
                     }
-                    tempResults.add(-value);
                 }
             }
-            prevOperator = operator;
             results = tempResults;
             i++;
         }
