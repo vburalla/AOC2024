@@ -26,9 +26,8 @@ public class Day9 {
 
         fillFileMap(fileMap, deflatedMap, nullsList, nullsPositions, valuePositions);
         List<Integer> deflatedMap2 = new ArrayList<>(deflatedMap);
-        List<Integer> nullsList2 = new ArrayList<>(nullsList);
         compress(deflatedMap, nullsList);
-        compress2(deflatedMap2, nullsList2, valuePositions, nullsPositions);
+        compress2(deflatedMap2, valuePositions, nullsPositions);
         System.out.println(sumPositions(deflatedMap));
         System.out.println(sumPositions(deflatedMap2));
     }
@@ -78,7 +77,6 @@ public class Day9 {
 
     private static void compress(List<Integer> values, List<Integer> nullsPositions) {
 
-        int i = 0;
         Integer nextNotNullPosition = null;
         while (!nullsPositions.isEmpty()) {
 
@@ -92,7 +90,7 @@ public class Day9 {
         }
     }
 
-    private static void compress2(List<Integer> values, List<Integer> nullsList, List<Position> valuesPositions, List<Position> nullsPositions) {
+    private static void compress2(List<Integer> values, List<Position> valuesPositions, List<Position> nullsPositions) {
 
         for (int i = valuesPositions.size() - 1; i > 0; i--) {
 
@@ -111,7 +109,6 @@ public class Day9 {
                     nullsPositions.set(fitPosition, new Position(0, 0));
                 }
             }
-            //System.out.println(values);
         }
     }
 
@@ -171,6 +168,9 @@ class Position {
     }
 
     public Integer getSize() {
+        if(endPosition == 0 && startPosition == 0){
+            return 0;
+        }
         return endPosition - startPosition + 1;
     }
 }
