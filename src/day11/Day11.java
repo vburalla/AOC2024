@@ -2,51 +2,61 @@ package day11;
 
 import utils.ReadFiles;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Day11 {
 
+    private static Map<Long, List<Long>> stoneMap = new HashMap<>();
+
     public static void main(String[] args) {
         System.out.println("Day 11");
         List<String> lines = ReadFiles.getInputData("src/day11/input1.txt");
-        //blink(75, lines.get(0));
+        System.out.print("Part1: ");
+        blink(lines.get(0), 25);
+        System.out.print("Part2: ");
         blink(lines.get(0), 75);
-    }
-
-    private static void blink(int times, String line) {
-
-        List<Long> stones = Arrays.stream(line.split(" ")).map(Long::valueOf).collect(Collectors.toList());
-
-        for(int i=0; i<times; i++) {
-
-            List<Long> newStones = new ArrayList<>();
-            for(Long stone: stones) {
-                newStones.addAll(getNewStones(stone));
-            }
-            stones = newStones;
-            System.out.println(stones.size());
-        }
-        System.out.println(stones.size());
     }
 
     private static void blink(String line, int times) {
 
         List<Long> stones = Arrays.stream(line.split(" ")).map(Long::valueOf).collect(Collectors.toList());
         Long result = 0L;
-        for(int i = 0; i<stones.size(); i++) {
+        Map<Long, Long> stonesMap = stones.stream().collect(Collectors.groupingBy(Long::valueOf, Collectors.counting()));
 
-            result += elements(stones.get(i), times);
+        for(int i = 0; i<times; i++) {
+            Map<Long, Long> nextLevelMap = new HashMap<>();
+            for (Map.Entry<Long, Long> entry : stonesMap.entrySet()) {
+
+                List<Long> stoneValues = getValues(entry.getKey());
+                result += stoneValues.size() * entry.getValue();
+                for (Long stoneValue : stoneValues) {
+                    Long stoneValueAmount = nextLevelMap.getOrDefault(stoneValue, 0L);
+                    nextLevelMap.put(stoneValue, stoneValueAmount + entry.getValue());
+                }
+            }
+            stonesMap = nextLevelMap;
+            if(i == times-1)
+                System.out.println(result);
+            result = 0L;
         }
-        System.out.println(result);
+
+    }
+
+    private static List<Long> getValues(Long stone) {
+
+        List<Long> values = stoneMap.get(stone);
+        if(values == null) {
+            values = getNewStones(stone);
+        }
+        return values;
     }
 
     private static List<Long> getNewStones(Long stone) {
 
         List<Long> newStones = new ArrayList<>();
         String valueAsString = String.valueOf(stone);
+
         if(stone.equals(0L)) {
             newStones.add(1L);
         } else if(isEven(valueAsString.length())){
@@ -55,6 +65,7 @@ public class Day11 {
         } else {
             newStones.add(stone * 2024);
         }
+        stoneMap.put(stone, newStones);
         return newStones;
     }
 
@@ -62,17 +73,4 @@ public class Day11 {
         return number % 2 == 0;
     }
 
-    private static Long elements(Long value, int times) {
-
-        Long result = 0L;
-        if(times == 1) {
-            result += getNewStones(value).size();
-        } else {
-            List<Long> newElements = getNewStones(value);
-            result += elements(newElements.get(0), times - 1);
-            if(newElements.size() > 1)
-                result+= elements(newElements.get(1), times - 1);
-        }
-        return result;
-    }
 }
