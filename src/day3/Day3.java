@@ -21,7 +21,7 @@ public class Day3 {
 
     public static void main (String[] args) {
 
-        List<String> lines = ReadFiles.getInputData("src/day3/input1.txt");
+        List<String> lines = ReadFiles.getInputData("src/day3/input1.txt.txt");
         Long result = 0L;
         Boolean multiplyStatus = null;
         int i = 0;

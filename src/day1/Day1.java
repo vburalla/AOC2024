@@ -53,7 +53,7 @@ public class Day1 {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
-        populateLists(list1, list2, "src/day1/input1.txt");
+        populateLists(list1, list2, "src/day1/input1.txt.txt");
         System.out.println("Distance between two lists = " + calculateDistance(list1, list2));
         System.out.println("Similarity between two lists = " + calculateSimilarity(list1, list2));
 

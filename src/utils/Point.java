@@ -13,9 +13,10 @@ public class Point {
     }
 
     public Point(String coordinates) {
-        String[] coord = coordinates.split(", ");
-        this.x = Integer.parseInt(coord[0].replace("x=",""));
-        this.y = Integer.parseInt(coord[1].replace("y=", ""));
+
+        String[] coord = coordinates.split(",");
+        this.x = Integer.parseInt(coord[0]);
+        this.y = Integer.parseInt(coord[1]);
     }
 
     public void setX(int x) {

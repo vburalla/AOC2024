@@ -11,7 +11,7 @@ public class Day4 {
 
     public static void main(String[] args) {
 
-        List<String> lines = ReadFiles.getInputData("src/day4/input1.txt");
+        List<String> lines = ReadFiles.getInputData("src/day4/input1.txt.txt");
         detectXmas(lines);
     }
 

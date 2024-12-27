@@ -15,7 +15,7 @@ public class Day13 {
     public static void main(String[] args) {
 
         System.out.println("Day 13");
-        List<String> lines = ReadFiles.getInputData("src/day13/input1.txt");
+        List<String> lines = ReadFiles.getInputData("src/day13/input1.txt.txt");
         List<List<LongPoint>> points = getCoefficientsList(lines);
 
         Long result = 0L;

@@ -69,7 +69,7 @@ public class Day2 {
     public static void main(String[] args) {
 
         List<List<Integer>> reportLines = new ArrayList<>();
-        populateData(reportLines, "src/day2/input1.txt");
+        populateData(reportLines, "src/day2/input1.txt.txt");
         countUnsafeReports(reportLines);
     }
 }

@@ -10,7 +10,7 @@ public class Day9 {
 
     public static void main(String[] args) {
         System.out.println("Day 9");
-        expandFileMap("src/day9/input1.txt");
+        expandFileMap("src/day9/input1.txt.txt");
     }
 
     private static void expandFileMap(String path) {

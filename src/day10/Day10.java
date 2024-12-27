@@ -15,7 +15,7 @@ public class Day10 {
     public static void main(String[] args) {
         System.out.println("Day 10");
 
-        grid = ReadFiles.getInputDataAsIntegerMatrix("src/day10/input1.txt");
+        grid = ReadFiles.getInputDataAsIntegerMatrix("src/day10/input1.txt.txt");
 
         List<Point> zeroPoints = getZeroPoints();
         System.out.println(zeroPoints);

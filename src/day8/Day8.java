@@ -16,7 +16,7 @@ public class Day8 {
 
     public static void main(String[] args) {
         System.out.println("Day 8");
-        fillGrid("src/day8/input1.txt");
+        fillGrid("src/day8/input1.txt.txt");
         createAntennaAntiNodes();
         System.out.println("Total antiNodes: " + antiNodes);
         System.out.println("Total harmonics: " + (harmonics + antiNodes));

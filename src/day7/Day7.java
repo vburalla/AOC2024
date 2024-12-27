@@ -13,7 +13,7 @@ public class Day7 {
 
     public static void main(String[] args) {
         System.out.println("Day 7");
-        List<String> lines = ReadFiles.getInputData("src/day7/input1.txt");
+        List<String> lines = ReadFiles.getInputData("src/day7/input1.txt.txt");
 
         Long total = 0L;
         Long total2 = 0L;

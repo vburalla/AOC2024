@@ -17,7 +17,7 @@ public class Day6 {
 
     public static void main(String[] args) {
 
-        grid = ReadFiles.getInputDataAsCharMatrix("src/day6/input1.txt");
+        grid = ReadFiles.getInputDataAsCharMatrix("src/day6/input1.txt.txt");
         startPosition = getGuardStartPosition();
         moveUntilExitGrid();
         System.out.println("Part 1: " + visitedPoints.size());
